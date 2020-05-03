@@ -3,7 +3,7 @@
 const fs = require('fs')
 const split = require('split2')
 const through = require('through2')
-const cities = require('cities-with-1000');
+const cities = require('cities-with-500');
 const Pbf = require('pbf')
 
 var pbf = new Pbf()
@@ -32,7 +32,7 @@ function writeCity(city, pbf) {
     pbf.writeSVarintField(1, city.id)
     pbf.writeStringField(2, city.name)
     pbf.writeStringField(3, city.country)
-    
+
     if (city.altCountry && city.altCountry !== city.country)
         pbf.writeStringField(4, city.altCountry)
 
@@ -52,8 +52,8 @@ function writeCity(city, pbf) {
     const lon = Math.round(1e5 * city.lon)
     pbf.writeSVarintField(10, lon - lastLon)
     pbf.writeSVarintField(11, lat - lastLat)
-   
-   
+
+
     lastLat = lat
     lastLon = lon
 }
